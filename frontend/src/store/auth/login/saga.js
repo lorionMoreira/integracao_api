@@ -35,7 +35,7 @@ function* loginUser({ payload: { user, history } }) {
       
       yield localStorage.setItem("authUser", JSON.stringify(response));
       yield put(loginSuccess(response));
-      history('/componentes/buscar');
+      history('/dashboard');
 
     }else if (process.env.REACT_APP_DEFAULTAUTH == 'prod') {
       console.log(user)
@@ -50,7 +50,7 @@ function* loginUser({ payload: { user, history } }) {
       
       yield localStorage.setItem("authUser", JSON.stringify(response));
       yield put(loginSuccess(response));
-      history('/componentes/buscar');
+      history('/dashboard');
     } else if (process.env.REACT_APP_DEFAULTAUTH == 'dev') {
 
       console.log(user)
@@ -66,7 +66,7 @@ function* loginUser({ payload: { user, history } }) {
 
       yield localStorage.setItem("authUser", JSON.stringify(response));
       yield put(loginSuccess(response));
-      history('/componentes/buscar');
+      history('/dashboard');
     }
     
 

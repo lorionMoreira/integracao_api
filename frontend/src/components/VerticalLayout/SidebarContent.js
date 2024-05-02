@@ -162,7 +162,7 @@ const SidebarContent = props => {
     <SimpleBar className="h-100" >
       <div id="sidebar-menu">
         <ul className="metismenu list-unstyled" id="side-menu">
-          <li className="menu-title">{props.t("Menu")} </li>
+          <li className="menu-title">{props.t("Integrações")} </li>
          {/* 
           <li>
             <Link to="/#" >
@@ -179,7 +179,7 @@ const SidebarContent = props => {
           <li>
             <a  style={{ color: '#556EE6', cursor: 'default'}}>
               <i className="bx bxs-package" style={{ color: '#556EE6'}}></i>
-              <span>{props.t("Componentes")}</span>
+              <span>{props.t("Weather")}</span>
             </a>
             <ul className="sub-menu">
               <li>

@@ -20,6 +20,9 @@
 
 npm-debug.log*
 
+backend/src/main/resources/application-dev.properties
+backend/src/main/resources/application-prod.properties
+backend/src/main/resources/application-test.properties
 
 .idea
 

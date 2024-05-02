@@ -71,7 +71,7 @@ const authProtectedRoutes = [
    {
     path: "/",
     exact: true,
-    component: < Navigate to="/componentes/buscar" />,
+    component: < Navigate to="/dashboard" />,
   },
     // "not found" route
     {

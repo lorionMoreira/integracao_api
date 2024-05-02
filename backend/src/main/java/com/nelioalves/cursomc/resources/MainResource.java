@@ -15,7 +15,7 @@ import com.nelioalves.cursomc.services.DisciplinaService;
 @RequestMapping(value = "/api/time/forecast")
 public class MainResource {
 
-        @Autowired
+    @Autowired
     private DisciplinaService service;
     
     @GetMapping("/all")
