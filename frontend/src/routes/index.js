@@ -19,6 +19,9 @@ import ForgetPwd from "../pages/Authentication/ForgetPassword"
 
 // Dashboard
 import Dashboard from "../pages/Dashboard/index"
+ //weather
+ import WeatherBuscar from "../pages/Weather/weatherBuscar.js"
+
 // Componentes
 import Componentes from "../pages/Componentes/index"
 import ComponentesAdd from "../pages/AddComponentes/index"
@@ -39,6 +42,9 @@ import NotFound from "pages/NotFound/pages-404"
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <Dashboard/> },
+
+  //weather
+  { path: "/weather/buscar", component: <WeatherBuscar/> },
 
   //Componentes
   { path: "/componentes/buscar", component: <Componentes/> },

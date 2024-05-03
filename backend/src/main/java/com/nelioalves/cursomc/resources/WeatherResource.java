@@ -17,8 +17,8 @@ public class WeatherResource {
 
     @GetMapping("/get")
     public Mono<String> getWeather() {
-        double lat = 321;
-        double lon = 321;
+        double lat = 44.34;
+        double lon = 10.99;
         return weatherService.fetchWeather(lat, lon);
     }
 }

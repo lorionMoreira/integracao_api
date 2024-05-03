@@ -183,7 +183,7 @@ const SidebarContent = props => {
             </a>
             <ul className="sub-menu">
               <li>
-                <NavLink to="/componentes/buscar"
+                <NavLink to="/weather/buscar"
                 style={{ color: isActive('/componentes/buscar') ? '#556EE6' : 'inherit' }}
                 >{props.t("Buscar")}</NavLink>
               </li>
