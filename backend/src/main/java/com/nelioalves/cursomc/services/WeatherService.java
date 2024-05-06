@@ -1,42 +1,37 @@
 package com.nelioalves.cursomc.services;
-import java.util.Collections;
+
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
-import org.springframework.cache.annotation.Cacheable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.web.client.RestTemplate;
+
 @Service
 public class WeatherService {
-    private final WebClient webClient;
-    private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
-    
-    public WeatherService(WebClient.Builder webClientBuilder,
-                            @Value("${openweathermap.api.key}") String apiKey) {
+    private final RestTemplate restTemplate;
 
-        
+    @Value("${openweathermap.api.key}")
+    private String api1Key;
 
-        this.webClient = webClientBuilder
-                .baseUrl("https://api.openweathermap.org")
-                .defaultUriVariables(Collections.singletonMap("API_KEY", apiKey))
-                .build();
+    @Value("${weatherapicom.api.key}")
+    private String api2Key;
+
+    public WeatherService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
-    @Cacheable(value = "weatherCache", key = "#lat + ',' + #lon")
-    public Mono<String> fetchWeather(double lat, double lon) {
-        logger.info("Fetching weather data for coordinates: {}, {}", lat, lon);
-
-        return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("/data/2.5/weather")
-                        .queryParam("lat", lat)
-                        .queryParam("lon", lon)
-                        .queryParam("appid", "{API_KEY}")
-                        .build())
-                .retrieve()
-                .bodyToMono(String.class);
+    public String getWeatherForCity1(String city) {
+        String url = String.format(
+            "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s",
+            city, api1Key
+        );
+        return restTemplate.getForObject(url, String.class);
     }
 
-
+    public String getWeatherForCity2(String city) {
+        String url = String.format(
+            "https://api.weatherapi.com/v1/current.json?q=%s&key=%s",
+            city, api2Key
+        );
+        return restTemplate.getForObject(url, String.class);
+    }
 }

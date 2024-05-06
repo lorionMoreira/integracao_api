@@ -41,7 +41,7 @@ public class User implements Serializable {
 	
 	@JsonIgnore
 	private String senha;
-		
+		/* 
 	@JsonIgnore
     @OneToMany(mappedBy = "userId")
     private List<DisciplinaComponente> dc = new ArrayList<>();
@@ -49,7 +49,7 @@ public class User implements Serializable {
 	@JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Componente> c = new ArrayList<>();
-	
+	*/
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
@@ -126,6 +126,7 @@ public class User implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	/* 
     public List<DisciplinaComponente> getDc() {
         return dc;
     }
@@ -141,7 +142,7 @@ public class User implements Serializable {
     public void setC(List<Componente> c) {
         this.c = c;
     }
-	
+	*/
 	public Set<Perfil> getPerfis() {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}

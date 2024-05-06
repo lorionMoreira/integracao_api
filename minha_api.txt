@@ -1,0 +1,15 @@
+#API DE TEMPO
+@ openweather
+login : ldjmoreira@hotmail.com
+senha : fdsfa@55
+site: https://openweathermap.org/price#weather
+apikey: 20760dcf7317885300d23547b2bb8fee
+é pago: free
+
+@weatherapi.com
+https://www.weatherapi.com/docs/#intro-request
+login : ldjmoreira@hotmail.com
+senha : fdsfa@55
+site: https://www.weatherapi.com/docs/#intro-request
+apikey: 61ca1e6a6333495d9f1125201240405
+é pago: free
