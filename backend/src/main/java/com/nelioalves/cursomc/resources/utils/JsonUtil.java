@@ -9,54 +9,36 @@ public class JsonUtil {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public static String extractFieldFromJson(String json, String fieldName) {
-        try {
-            JsonNode jsonNode = objectMapper.readTree(json);
-            JsonNode fieldNode = jsonNode.get(fieldName);
-            return fieldNode != null ? fieldNode.asText() : "Field not found";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "Error parsing JSON";
-        }
-    }
 
     public static String extractFieldFromJson1(String json) {
-
+        String fieldPath = "main.temp";
         try {
-            String fieldPath="main.temp";
-
-            JsonNode rootNode = objectMapper.readTree(json);
-            JsonNode targetNode = rootNode;
-            for (String part : fieldPath.split("\\.")) {
-                targetNode = targetNode.get(part);
-                if (targetNode == null) {
-                    return "Field not found";
-                }
-            }
-            return targetNode.isTextual() ? targetNode.asText() : targetNode.toString();
+            return extractFieldFromJson(json, fieldPath);
         } catch (IOException e) {
             e.printStackTrace();
-            return "Error parsing JSON";
+            return "Error parsing JSON"; // Consider how you want to handle errors more robustly.
         }
     }
 
     public static String extractFieldFromJson2(String json) {
-     
+        String fieldPath = "current.temp_c";
         try {
-            String fieldPath="current.temp_c";
-
-            JsonNode rootNode = objectMapper.readTree(json);
-            JsonNode targetNode = rootNode;
-            for (String part : fieldPath.split("\\.")) {
-                targetNode = targetNode.get(part);
-                if (targetNode == null) {
-                    return "Field not found";
-                }
-            }
-            return targetNode.isTextual() ? targetNode.asText() : targetNode.toString();
+            return extractFieldFromJson(json, fieldPath);
         } catch (IOException e) {
             e.printStackTrace();
-            return "Error parsing JSON";
+            return "Error parsing JSON"; // Consistent error handling.
         }
+    }
+
+    protected static String extractFieldFromJson(String json, String fieldPath) throws IOException {
+        JsonNode rootNode = objectMapper.readTree(json);
+        JsonNode targetNode = rootNode;
+        for (String part : fieldPath.split("\\.")) {
+            targetNode = targetNode.get(part);
+            if (targetNode == null) {
+                return "Field not found";
+            }
+        }
+        return targetNode.isTextual() ? targetNode.asText() : targetNode.toString();
     }
 }

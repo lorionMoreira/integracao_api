@@ -10,6 +10,11 @@ public class ParserUtil {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
+    public static String createTemperatureJson(String temperature) throws IOException  {
+        // Constructing the JSON string manually
+        return String.format("{\"temperature\":%s}", temperature);
+    }
+
     public static WeatherApi1 parseWeatherApi1(String json) throws IOException {
         return objectMapper.readValue(json, WeatherApi1.class);
     }

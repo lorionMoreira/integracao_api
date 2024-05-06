@@ -43,22 +43,21 @@ public class WeatherResource {
         String city = "London";
         try {
             String response1 = weatherService.getWeatherForCity1(city);
-
             String response2 = weatherService.getWeatherForCity2(city);
 
             
             String fieldFromResponse1 = JsonUtil.extractFieldFromJson1(response1);
             String fieldFromResponse2 = JsonUtil.extractFieldFromJson2(response2);
 
-            WeatherApi1 weatherApi1 = ParserUtil.parseWeatherApi1(response1);
-            WeatherApi2 weatherApi2 = ParserUtil.parseWeatherApi2(response2);
+            String tempJson1 = ParserUtil.createTemperatureJson(fieldFromResponse1);
+            String tempJson2 = ParserUtil.createTemperatureJson(fieldFromResponse2);
+
+            WeatherApi1 weatherApi1 = ParserUtil.parseWeatherApi1(tempJson1);
+            WeatherApi2 weatherApi2 = ParserUtil.parseWeatherApi2(tempJson2);
 
             Result result = weatherCalculationService.calculateAverageTemperature(weatherApi1, weatherApi2);
             
-            Map<String, String> responses = new HashMap<>();
-            responses.put("temperatureFromAPI1", fieldFromResponse1);
-            responses.put("temperatureFromAPI2", fieldFromResponse2);
-        
+
             return ResponseEntity.ok(result);
         } catch (IOException e) {
             e.printStackTrace();

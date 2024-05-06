@@ -10,7 +10,7 @@ import com.nelioalves.cursomc.domain.WeatherApi2;
 public class WeatherCalculationService {
 
      public Result calculateAverageTemperature(WeatherApi1 weatherApi1, WeatherApi2 weatherApi2) {
-        double average = (weatherApi1.getTemperature() + weatherApi2.getTemperature()) / 2;
+        double average = (weatherApi1.getTemperature_c() + weatherApi2.getTemperature()) / 2;
         
         return new Result(average);
     }  
