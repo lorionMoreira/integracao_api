@@ -1,9 +1,11 @@
 package com.nelioalves.cursomc.resources;
 
 
+import com.nelioalves.cursomc.domain.City;
 import com.nelioalves.cursomc.domain.Result;
 import com.nelioalves.cursomc.domain.WeatherApi1;
 import com.nelioalves.cursomc.domain.WeatherApi2;
+import com.nelioalves.cursomc.dto.CityDTO;
 import com.nelioalves.cursomc.resources.utils.JsonUtil;
 import com.nelioalves.cursomc.resources.utils.ParserUtil;
 import com.nelioalves.cursomc.services.WeatherCalculationService;
@@ -16,9 +18,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import java.util.List;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/weather")
@@ -40,10 +44,17 @@ public class WeatherResource {
     */
     @GetMapping("/v1/get")
     public ResponseEntity<Result> getWeather() {
-        String city = "London";
+
+        Double salvadorLat = -12.98;
+        Double salvadorLong = -38.48;
         try {
-            String response1 = weatherService.getWeatherForCity1(city);
-            String response2 = weatherService.getWeatherForCity2(city);
+            //String response1 = weatherService.getWeatherForCity1(city);
+            //String response2 = weatherService.getWeatherForCity2(city);
+
+
+            String response1 = weatherService.getWeatherForLateLong1(salvadorLat,salvadorLong);
+            String response2 = weatherService.getWeatherForLateLong2(salvadorLat,salvadorLong);
+            
 
             
             String fieldFromResponse1 = JsonUtil.extractFieldFromJson1(response1);
@@ -64,4 +75,13 @@ public class WeatherResource {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @GetMapping("/v1/cities")
+    public ResponseEntity<List<CityDTO>> getCities() {
+        List<City> cities = weatherService.getCities();
+       List<CityDTO> unifiedcities = weatherService.unifyCoordinates(cities);
+        return ResponseEntity.ok(unifiedcities);
+    }
+
+
 }
