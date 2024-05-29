@@ -44,16 +44,19 @@ const WeatherBuscar = props => {
 
 const [loading, setLoading] = useState(false);
 const [cities, setCities] = useState([]);
+const [selected, setSelected] = useState(false);
+const [Temperatura,setTemperatura] = useState(0);
 
-const fetchInitial = async (page) => {
+const fetchInformation = async (city,latAndLog) => {
   try {
     setLoading(true);
-    const response = await get('/api/weather/v1/get');
+    const response = await post('/api/weather/v1/get',{city,latAndLog});
     setLoading(false);
     console.log("response")
     console.log(response)
 
-
+    setTemperatura(response.averageTemperature)
+    
   } catch (error) {
     //setError(error);  
 
@@ -80,22 +83,38 @@ const fetchInitial = async (page) => {
     const obj = JSON.parse(localStorage.getItem("authUser"));
     setAuthToken(obj?.token);
 
-    fetchInitial();
+    //fetchInitial();
   }, []);
 
   const fetchOptions = async () => {
     console.log('craziii')
     try {
-      const response = await get('/api/weather/v1/cities');
-      console.log('unidade')
-      console.log(response)
-      setCities(response);
+      const responseList = await get('/api/weather/v1/cities');
+      console.log('cidades')
+      console.log(responseList)
+
+      setCities(responseList);
     } catch (error) {
       
     }
   };
 
-
+  const validation = useFormik({
+    // enableReinitialize : use this flag when initial values needs to be changed
+    enableReinitialize: true,
+  
+    initialValues: {
+      latAndLog: '',
+    },
+    validationSchema: Yup.object({
+      latAndLog: Yup.mixed().required("Please select an option"),
+    }),
+    onSubmit: (values) => {
+      console.log('variavel submetida')
+    
+      
+  }
+  });
 
   useEffect(() => {
     if (loading) {
@@ -110,6 +129,21 @@ const fetchInitial = async (page) => {
     };
   }, [loading]);
 
+
+ function handleSelectCidades(e) {
+  console.log('foi21')
+  let latAndLog  = e.target.value;
+
+  let city = cities.find(city => city.latAndLog === latAndLog);
+
+  fetchInformation(city,latAndLog)
+  setSelected(true)
+  validation.setValues(prevValues => ({
+    ...prevValues,
+    latAndLog: latAndLog,
+  }));
+ }
+
   return (
     <React.Fragment>
 
@@ -123,9 +157,17 @@ const fetchInitial = async (page) => {
             <Card className="p-3">
               <CardBody>
                     <CardTitle>Selecione a cidade para verificar a previsão do tempo atual</CardTitle>
-                    <CardSubtitle className="font-14 text-muted">
-                      Use o campo abaixo para adicionar uma disciplina ao sistema.
-                    </CardSubtitle>
+                    
+                    {selected ? (
+                          <CardSubtitle className="font-14 text-muted">
+                              Temperatura: {Temperatura}
+                          </CardSubtitle>
+                      ) : (
+                          <CardSubtitle className="font-14 text-muted">
+                              Temperatura ainda não selecionada
+                          </CardSubtitle>
+                    )}
+
 
                     <Form
                       className="form-horizontal"
@@ -136,25 +178,26 @@ const fetchInitial = async (page) => {
                       }}
                     >
                     <div className="mb-3">
-                      <Label className="form-label">cidade</Label>
+                      
                       <Input
-                        name="cidade"
+                        name="latAndLog"
                         className="form-control"
                         placeholder="Digite o cidade da disciplina"
                         type="select"
-                        onChange={validation.handleChange}
+                        onChange={handleSelectCidades}
                         onBlur={validation.handleBlur}
-                        value={validation.values.cidade || ""}
-                        invalid={validation.touched.unidade && validation.errors.unidade}
-                      />
-                      <option value="">Selecione</option>
-                        {options2.map((option) => (
-                        <option key={option.id} value={option.id}>
-                          {option.nome}
+                        value={validation.values.latAndLog || ""}
+                        invalid={validation.touched.latAndLog && validation.errors.latAndLog}
+                      >
+                        <option value="">Selecione</option>
+                        {cities.map((option) => (
+                        <option key={option.latAndLog} value={option.latAndLog}>
+                          {option.name}
                         </option>
                         ))}
-                      {validation.touched.cidade && validation.errors.cidade ? (
-                        <FormFeedback type="invalid">{validation.errors.cidade}</FormFeedback>
+                        </Input>
+                      {validation.touched.latAndLog && validation.errors.latAndLog ? (
+                        <FormFeedback type="invalid">{validation.errors.latAndLog}</FormFeedback>
                       ) : null}
                     </div>
 

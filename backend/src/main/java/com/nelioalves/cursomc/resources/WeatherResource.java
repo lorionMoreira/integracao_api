@@ -18,6 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,18 +45,17 @@ public class WeatherResource {
         return weatherService.fetchWeather(lat, lon);
     }
     */
-    @GetMapping("/v1/get")
-    public ResponseEntity<Result> getWeather() {
+    @PostMapping("/v1/get")
+    public ResponseEntity<Result> getWeather(@RequestBody CityDTO cityDTO) {
 
-        Double salvadorLat = -12.98;
-        Double salvadorLong = -38.48;
         try {
-            //String response1 = weatherService.getWeatherForCity1(city);
-            //String response2 = weatherService.getWeatherForCity2(city);
+            double[] coordinates = weatherService.parseLatAndLog(cityDTO.getLatAndLog());
+            double latitude = coordinates[0];
+            double longitude = coordinates[1];
 
 
-            String response1 = weatherService.getWeatherForLateLong1(salvadorLat,salvadorLong);
-            String response2 = weatherService.getWeatherForLateLong2(salvadorLat,salvadorLong);
+            String response1 = weatherService.getWeatherForLateLong1(latitude,longitude);
+            String response2 = weatherService.getWeatherForLateLong2(latitude,longitude);
             
 
             
@@ -68,7 +70,6 @@ public class WeatherResource {
 
             Result result = weatherCalculationService.calculateAverageTemperature(weatherApi1, weatherApi2);
             
-
             return ResponseEntity.ok(result);
         } catch (IOException e) {
             e.printStackTrace();

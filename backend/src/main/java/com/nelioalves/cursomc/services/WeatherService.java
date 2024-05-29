@@ -74,5 +74,15 @@ public class WeatherService {
         )).collect(Collectors.toList());
     }
 
+    public double[] parseLatAndLog(String latAndLog) {
+        String[] parts = latAndLog.split(",");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid latitude and longitude format.");
+        }
+        double latitude = Double.parseDouble(parts[0]);
+        double longitude = Double.parseDouble(parts[1]);
+        return new double[]{latitude, longitude};
+    }
+
     //
 }

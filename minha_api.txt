@@ -13,3 +13,13 @@ senha : fdsfa@55
 site: https://www.weatherapi.com/docs/#intro-request
 apikey: 61ca1e6a6333495d9f1125201240405
 é pago: free
+
+
+"temperatureFromAPI2": "{\"location\":{\"name\":\"London\",\"region\":\"City of London, Greater London\",\"country\":\"United Kingdom\",\"lat\":51.52,\"lon\":-0.11,\"tz_id\":\"Europe/London\",\"localtime_epoch\":1714871573,\"localtime\":\"2024-05-05 2:12\"},\"current\":{\"last_updated_epoch\":1714870800,\"last_updated\":\"2024-05-05 02:00\",\"temp_c\":8.0,\"temp_f\":46.4,\"is_day\":0,\"condition\":{\"text\":\"Partly cloudy\",\"icon\":\"//cdn.weatherapi.com/weather/64x64/night/116.png\",\"code\":1003},\"wind_mph\":2.2,\"wind_kph\":3.6,\"wind_degree\":300,\"wind_dir\":\"WNW\",\"pressure_mb\":1009.0,\"pressure_in\":29.8,\"precip_mm\":0.0,\"precip_in\":0.0,\"humidity\":93,\"cloud\":75,\"feelslike_c\":7.9,\"feelslike_f\":46.2,\"vis_km\":10.0,\"vis_miles\":6.0,\"uv\":1.0,\"gust_mph\":4.7,\"gust_kph\":7.6}}",
+    "temperatureFromAPI1": "{\"coord\":{\"lon\":-0.1257,\"lat\":51.5085},\"weather\":[{\"id\":721,\"main\":\"Haze\",\"description\":\"haze\",\"icon\":\"50n\"}],\"base\":\"stations\",\"main\":{\"temp\":281.28,\"feels_like\":281.28,\"temp_min\":278.74,\"temp_max\":283.2,\"pressure\":1008,\"humidity\":91},\"visibility\":4900,\"wind\":{\"speed\":1.03,\"deg\":0},\"clouds\":{\"all\":85},\"dt\":1714871325,\"sys\":{\"type\":2,\"id\":2075535,\"country\":\"GB\",\"sunrise\":1714883061,\"sunset\":1714937395},\"timezone\":3600,\"id\":2643743,\"name\":\"London\",\"cod\":200}"
+
+
+{
+    "temperatureFromAPI2": "8.0",
+    "temperatureFromAPI1": "281.25"
+}
